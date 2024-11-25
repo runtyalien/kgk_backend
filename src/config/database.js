@@ -1,8 +1,28 @@
-const { Sequelize } = require('sequelize');
+import 'dotenv/config';
+import { DataSource } from 'typeorm';
+import { User } from '../entities/User.js';
+import { Resource } from '../entities/Resource.js';
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/resource_sharing', {
+export const AppDataSource = new DataSource({
+  type: 'postgres',
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  synchronize: true,
   logging: false,
-  dialect: 'postgres'
+  entities: [User, Resource],
+  migrations: [],
+  subscribers: [],
 });
 
-module.exports = sequelize;
+export const initializeDatabase = async () => {
+  try {
+    await AppDataSource.initialize();
+    console.log('Database connected successfully');
+  } catch (error) {
+    console.error('Database connection error:', error);
+    process.exit(1);
+  }
+};
