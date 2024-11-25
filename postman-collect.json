@@ -1,0 +1,164 @@
+{
+  "info": {
+    "name": "kgk-backend",
+    "description": "Backend Assignment for KGK"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "Create Resource",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceUrl\": \"http://example.com/resource\",\n  \"expirationTime\": \"2024-11-30T12:00:00Z\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get User Resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources?status=active",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "active"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Access Resource",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources/:accessToken",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources", ":accessToken"],
+              "variable": [
+                {
+                  "key": "accessToken",
+                  "value": "yourAccessToken"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Resource",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "yourResourceId"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": "yourJWTtoken"
+    }
+  ]
+}
