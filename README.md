@@ -1,4 +1,4 @@
-# kgk-backend
+# kgk-backend(Migration is not needed in dev environment)
 
 The current backend provides functionality for managing resources, including user registration, authentication, resource creation, retrieval, access with expiration, and deletion.
 
